@@ -148,6 +148,8 @@ C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentic
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\MiniBlogEngine.dll
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\MiniBlogEngine.pdb
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\Antlr3.Runtime.dll
+C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\EntityFramework.dll
+C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\EntityFramework.SqlServer.dll
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\Microsoft.AI.Agent.Intercept.dll
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\Microsoft.AI.DependencyCollector.dll
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -166,6 +168,8 @@ C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentic
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\System.Web.WebPages.dll
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\System.Web.WebPages.Razor.dll
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\WebGrease.dll
+C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\EntityFramework.xml
+C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\EntityFramework.SqlServer.xml
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\System.Web.Helpers.xml
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\System.Web.Mvc.xml
@@ -189,5 +193,6 @@ C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentic
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\de\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\bin\de\System.Web.WebPages.Razor.resources.dll
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\obj\Debug\MiniBlogEngine.csprojResolveAssemblyReference.cache
+C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\obj\Debug\MiniBlogEngine.csproj.CoreCompileInputs.cache
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\obj\Debug\MiniBlogEngine.dll
 C:\Users\Ron\Documents\GitHub\m183_project18\MiniBlogEngine\Two_Factor_Authentication\obj\Debug\MiniBlogEngine.pdb

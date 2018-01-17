@@ -59,6 +59,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -155,6 +157,39 @@
       <DependentUpon>Global.asax</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>MiniBlogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MiniBlogModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MiniBlogModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MiniBlogModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MiniBlogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MiniBlogModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MiniBlogModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Post.cs">
+      <DependentUpon>MiniBlogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Token.cs">
+      <DependentUpon>MiniBlogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>MiniBlogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserLog.cs">
+      <DependentUpon>MiniBlogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Userlogin.cs">
+      <DependentUpon>MiniBlogModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -167,10 +202,27 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="m183_project.mdf" />
+    <Content Include="Models\MiniBlogModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MiniBlogModel.edmx</DependentUpon>
+      <LastGenOutput>MiniBlogModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MiniBlogModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MiniBlogModel.edmx</DependentUpon>
+      <LastGenOutput>MiniBlogModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Models\MiniBlogModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MiniBlogModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\MiniBlogModel.edmx.diagram">
+      <DependentUpon>MiniBlogModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -203,7 +255,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -217,6 +268,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
