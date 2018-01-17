@@ -24,10 +24,11 @@ namespace MiniBlogEngine.Controllers
        
         public ActionResult Login()
         {
-            // In order to make this code work -> replace all UPPERCASE-Placeholders with the corresponding data!
 
             var username = Request["username"];
-            var password = Request["password"];       
+            Session["User"] = username;
+            var password = Request["password"];
+            Session["Password"] = password;
 
             if (username == "admin" && password == "test")
             {
@@ -48,20 +49,27 @@ namespace MiniBlogEngine.Controllers
         }
 
         [HttpPost]
-        public void TokenLogin()
+        public ActionResult TokenLogin()
         {
             var tokenreq = Request["token"];
             string token = Session["gentoken"] as string;
+            string user = Session["User"] as string;
+            string password = Session["Password"] as string;
 
-            if (tokenreq == token)
+            if (user == "admin" && password == "test" && tokenreq == token)
             {
                 ViewBag.Title = "Login successful";
-                RedirectToAction("Index");
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (user == "user" && password == "test" && tokenreq == token)
+            {
+                ViewBag.Title = "Login successful";
+                return RedirectToAction("Index", "User");
             }
             else
             {
                 ViewBag.Title = "Login failed";
-                RedirectToAction("Login");
+                return RedirectToAction("Login");
             }
             
         }

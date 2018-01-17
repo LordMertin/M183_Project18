@@ -9,7 +9,7 @@ namespace MiniBlogEngine.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult Dashboard()
         {
             return View();
         }
