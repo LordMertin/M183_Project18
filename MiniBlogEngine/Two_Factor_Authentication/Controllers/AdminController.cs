@@ -14,11 +14,14 @@ namespace MiniBlogEngine.Controllers
         Entities db = new Entities();
         public ActionResult Dashboard()
         {
-            if (Request.Cookies["authentication_cookie"] != null)
+            if (Request.Cookies.Get("authentication_cookie") != null)
             {
                 DashboardModel model = new DashboardModel();
+                HttpCookie cookie = new HttpCookie("authentication_cookie");
+                cookie = Request.Cookies.Get("authentication_cookie");
                 model.User =
-                    db.Users.SingleOrDefault(u => u.Username == Response.Cookies["authentication_cookie"].Value);
+                    db.Users.SingleOrDefault(u => u.Username == cookie.Value);
+                //all posts
                 model.Posts = db.Posts.ToList();
 
                 return View(model);

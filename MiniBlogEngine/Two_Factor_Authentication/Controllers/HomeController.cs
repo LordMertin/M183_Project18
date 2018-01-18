@@ -16,7 +16,7 @@ namespace MiniBlogEngine.Controllers
 
         public ActionResult Index()
         {
-            //if (Request.Cookies["authentication_cookie"] != null)
+            //if (HttpContext.Request.Cookies.Get("authentication_cookie") != null)
             //{
             //    User user = db.Users
             //        .SingleOrDefault(u => u.Username == Request.Cookies["authentication_cookie"].Value);
@@ -47,6 +47,8 @@ namespace MiniBlogEngine.Controllers
             var password = Request["password"];
 
             User user = db.Users.SingleOrDefault(u => u.Username == username && u.Password == password);
+
+            //Verify if user exists
             if (user != null && user.Status == "active")
             {
                 var request = (HttpWebRequest) WebRequest.Create("https://rest.nexmo.com/sms/json");
@@ -66,16 +68,23 @@ namespace MiniBlogEngine.Controllers
             var tokenreq = Request["token"];
             string username = Request["username"];
             string password = Request["password"];
+
+            //Verify credentials
             User user = db.Users.SingleOrDefault(u => u.Username == username && u.Password == password);
             Token token = db.Tokens.Where(t => t.UserId == user.Id).OrderByDescending(t => t.Expiry).First();
 
+            //Verify token
             if (tokenreq == token.Token1 && token.Expiry >= DateTime.Now && token.DeletedOn == null)
             {
+                // Add Cookie
                 AddCookie(user);
+
+                // Mark Token as deleted
                 token.DeletedOn = DateTime.Now;
                 db.Tokens.AddOrUpdate(token);
                 db.SaveChanges();
 
+                //Verify Role and move to Dashboard
                 if (user.Role == "admin")
                 {
                     return RedirectToAction("Dashboard", "Admin");
@@ -96,9 +105,9 @@ namespace MiniBlogEngine.Controllers
         [HttpGet]
         public ActionResult Logout()
         {
-            if (Request.Cookies["authentication_cookie"] != null)
+            if (Request.Cookies.Get("authentication_cookie") != null)
             {
-                HttpCookie cookie = new HttpCookie("authentication_cookie");
+                HttpCookie cookie = Request.Cookies.Get("authentication_cookie");
 
                 // Mark as deleted in DB
                 Userlogin login = db.Userlogins.SingleOrDefault(u => u.SessionId == cookie.Name);
@@ -126,30 +135,35 @@ namespace MiniBlogEngine.Controllers
 
         private void AddCookie(User user)
         {
+            //Add Cookie
             var authCookie = new HttpCookie("authentication_cookie");
             authCookie.Value = user.Username;
             authCookie.Expires = DateTime.Now.AddDays(14);
             authCookie.Path = "localhost:50446";
             Response.Cookies.Add(authCookie);
 
+            //Add UserLogin-Session
             Userlogin login = new Userlogin();
             login.CreatedOn = DateTime.Now;
             login.UserId = user.Id;
             login.SessionId = authCookie.Name;
             db.Userlogins.Add(login);
 
+            //Log
             Log("Session startet", user);
             db.SaveChanges();
         }
 
         public void GetRequestWithToken(HttpWebRequest request, User user)
         {
+            // Create secret token
             Random rnd = new Random();
             var secret = rnd.Next(1, 50).ToString()
                          + rnd.Next(1, 20).ToString()
                          + rnd.Next(1, 100).ToString()
                          + rnd.Next(1, 10).ToString();
 
+            //Add token to db
             Token token = new Token();
             token.UserId = user.Id;
             token.Token1 = secret;
@@ -157,6 +171,7 @@ namespace MiniBlogEngine.Controllers
             db.Tokens.Add(token);
             db.SaveChanges();
 
+            //Create SMS message
             var postData = "api_key=243e8477";
             postData += "&api_secret=9602c2376b4ccc20";
             postData += "&to=" + user.Mobilephonenumber;
@@ -182,6 +197,7 @@ namespace MiniBlogEngine.Controllers
 
         private void Log(string message, User user)
         {
+            //Log current happening
             UserLog log = new UserLog();
             log.Action = message;
             log.UserId = user.Id;
