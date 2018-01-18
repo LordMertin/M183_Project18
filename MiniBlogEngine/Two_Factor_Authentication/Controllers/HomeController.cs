@@ -1,13 +1,16 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Mvc;
+using MiniBlogEngine.Models;
 
 namespace MiniBlogEngine.Controllers
 {
     public class HomeController : Controller
     {
+        MiniBlogEngine.Models.Entities db = new Entities();
 
         public ActionResult Index()
         {
@@ -24,21 +27,15 @@ namespace MiniBlogEngine.Controllers
        
         public ActionResult Login()
         {
+            var users = db.Users;
 
             var username = Request["username"];
-            Session["User"] = username;
             var password = Request["password"];
-            Session["Password"] = password;
 
-            if (username == "admin" && password == "test")
+            if (users.Any(u => u.Username == username && u.Password == password))
             {
                 var request = (HttpWebRequest) WebRequest.Create("https://rest.nexmo.com/sms/json");
-                getRequestWithToken(request, username); 
-            }
-            else if (username == "user" && password == "test")
-            {
-                var request = (HttpWebRequest)WebRequest.Create("https://rest.nexmo.com/sms/json");
-                getRequestWithToken(request, username);
+                getRequestWithToken(request); 
             }
             else
             {
@@ -53,18 +50,16 @@ namespace MiniBlogEngine.Controllers
         {
             var tokenreq = Request["token"];
             string token = Session["gentoken"] as string;
-            string user = Session["User"] as string;
-            string password = Session["Password"] as string;
 
-            if (user == "admin" && password == "test" && tokenreq == token)
+            if (tokenreq == token)
             {
                 ViewBag.Title = "Login successful";
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("Dashboard", "Admin");
             }
-            else if (user == "user" && password == "test" && tokenreq == token)
+            else if (tokenreq == token)
             {
                 ViewBag.Title = "Login successful";
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("Dashboard", "User");
             }
             else
             {
@@ -81,7 +76,7 @@ namespace MiniBlogEngine.Controllers
             return View();
         }
 
-        public void getRequestWithToken(HttpWebRequest request, string username)
+        public void getRequestWithToken(HttpWebRequest request)
         {
             Random rnd = new Random();
             var secret = rnd.Next(1, 50).ToString()
