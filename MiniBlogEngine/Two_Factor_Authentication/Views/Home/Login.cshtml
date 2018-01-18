@@ -1,4 +1,6 @@
-﻿@{
+﻿@using MiniBlogEngine.Models;
+@model MiniBlogEngine.Models.User
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -12,7 +14,9 @@
         <form class="well" action="~/Home/TokenLogin" method="post">
 
             <legend><small>Token</small></legend>
-            <input type="text" name="token" value="" class="form-control" />           
+            <input type="text" name="token" value="" class="form-control" />
+            <input type="hidden" name="username" value="@Model.Username" />
+            <input type="hidden" name="password" value="@Model.Password" />
             <br />
             <input type="submit" name="" value="Verify" class="btn btn-primary">
 

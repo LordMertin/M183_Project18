@@ -160,6 +160,7 @@
     <Compile Include="Models\Comment.cs">
       <DependentUpon>MiniBlogModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\MiniBlogModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
