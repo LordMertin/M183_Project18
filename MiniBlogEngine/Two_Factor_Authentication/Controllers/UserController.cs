@@ -13,11 +13,13 @@ namespace MiniBlogEngine.Controllers
 
         public ActionResult Dashboard()
         {
-            if (Response.Cookies["authentication_cookie"] != null)
+            if (Request.Cookies["authentication_cookie"] != null)
             {
                 DashboardModel model = new DashboardModel();
+                HttpCookie cookie = new HttpCookie("authentication_cookie");
+                cookie = Request.Cookies["authentication_cookie"];
                 model.User =
-                    db.Users.SingleOrDefault(u => u.Username == Response.Cookies["authentication_cookie"].Value);
+                    db.Users.SingleOrDefault(u => u.Username == cookie.Value);
                 //only user-posts and not deleted
                 model.Posts = db.Posts.Where(p => p.UserId == model.User.Id && p.DeletedOn == null).ToList();
                 return View(model);

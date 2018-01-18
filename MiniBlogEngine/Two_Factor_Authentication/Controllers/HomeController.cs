@@ -16,19 +16,19 @@ namespace MiniBlogEngine.Controllers
 
         public ActionResult Index()
         {
-            if (Request.Cookies["authentication_cookie"] != null)
-            {
-                User user = db.Users
-                    .SingleOrDefault(u => u.Username == Request.Cookies["authentication_cookie"].Value);
-                if (user.Role == "admin")
-                {
-                    return RedirectToAction("Dashboard", "Admin");
-                }
-                else
-                {
-                    return RedirectToAction("Dashboard", "User");
-                }
-            }
+            //if (Request.Cookies["authentication_cookie"] != null)
+            //{
+            //    User user = db.Users
+            //        .SingleOrDefault(u => u.Username == Request.Cookies["authentication_cookie"].Value);
+            //    if (user.Role == "admin")
+            //    {
+            //        return RedirectToAction("Dashboard", "Admin");
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("Dashboard", "User");
+            //    }
+            //}
 
             return View();
         }
@@ -47,7 +47,7 @@ namespace MiniBlogEngine.Controllers
             var password = Request["password"];
 
             User user = db.Users.SingleOrDefault(u => u.Username == username && u.Password == password);
-            if (user != null && user.Status != "active")
+            if (user != null && user.Status == "active")
             {
                 var request = (HttpWebRequest) WebRequest.Create("https://rest.nexmo.com/sms/json");
                 GetRequestWithToken(request, user); 
@@ -91,6 +91,30 @@ namespace MiniBlogEngine.Controllers
                 return RedirectToAction("Login");
             }
             
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            if (Request.Cookies["authentication_cookie"] != null)
+            {
+                HttpCookie cookie = new HttpCookie("authentication_cookie");
+
+                // Mark as deleted in DB
+                Userlogin login = db.Userlogins.SingleOrDefault(u => u.SessionId == cookie.Name);
+                login.DeletedOn = DateTime.Now;
+                db.Userlogins.AddOrUpdate(login);
+                db.SaveChanges();
+
+                // Delete Cookie
+                cookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(cookie);
+
+                User user = db.Users.SingleOrDefault(u => u.Id == login.UserId);
+                Log("User logged out", user);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Contact()
