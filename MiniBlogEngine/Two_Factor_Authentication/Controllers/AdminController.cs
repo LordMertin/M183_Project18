@@ -14,11 +14,15 @@ namespace MiniBlogEngine.Controllers
         Entities db = new Entities();
         public ActionResult Dashboard()
         {
+            // Cookie kann nicht ausgelesen werden (Gründe unbekannt), würde eigentlich funktionieren.
+            // Testen kann man im Debug mode, die Value des Cookies auf den username setzen.
             if (Request.Cookies.Get("authentication_cookie") != null)
             {
                 DashboardModel model = new DashboardModel();
                 HttpCookie cookie = new HttpCookie("authentication_cookie");
                 cookie = Request.Cookies.Get("authentication_cookie");
+
+                //Hier die Value des Cookies im Debug-Mode einfügen, für abfrage zu DB.
                 model.User =
                     db.Users.SingleOrDefault(u => u.Username == cookie.Value);
                 //all posts

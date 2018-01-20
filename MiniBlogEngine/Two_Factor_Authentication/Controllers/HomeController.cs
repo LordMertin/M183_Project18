@@ -16,6 +16,8 @@ namespace MiniBlogEngine.Controllers
 
         public ActionResult Index()
         {
+
+            // Wenn Session aktiv, dann nicht Startseite sondern Dashboard (Cookie kann aber nicht ausgelesen werden, deshalb auskommentiert.)
             //if (HttpContext.Request.Cookies.Get("authentication_cookie") != null)
             //{
             //    User user = db.Users
